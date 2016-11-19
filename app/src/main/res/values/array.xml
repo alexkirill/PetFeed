@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cloud_chk_int_names">
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+    </string-array>
+    <string-array name="cloud_chk_int_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="feed_portion_names">
+        <item>1 portion</item>
+        <item>2 portions</item>
+        <item>3 portions</item>
+        <item>4 portions</item>
+        <item>5 portions</item>
+        <item>6 portions</item>
+        <item>7 portions</item>
+        <item>8 portions</item>
+        <item>9 portions</item>
+        <item>10 portions</item>
+    </string-array>
+    <string-array name="feed_portion_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+</resources>

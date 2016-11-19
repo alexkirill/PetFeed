@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+    <header
+        android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
+        android:title="WIFI"
+        android:summary="Setup wifi credentials for device" >
+        <extra android:name="area" android:value="wifi" />
+    </header>
+    <header
+        android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
+        android:title="Cloud"
+        android:summary="Setup cloud settings" >
+        <!-- key/value pairs can be included as arguments for the fragment. -->
+        <extra android:name="area" android:value="cloud" />
+    </header>
+    <header
+        android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
+        android:title="Schedule"
+        android:summary="Timming settings" >
+        <!-- key/value pairs can be included as arguments for the fragment. -->
+        <extra android:name="area" android:value="time" />
+    </header>
+    <header
+        android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
+        android:title="General"
+        android:summary="General settings of the device" >
+        <!-- key/value pairs can be included as arguments for the fragment. -->
+        <extra android:name="area" android:value="general" />
+    </header>
+</preference-headers>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="WiFi settings">
+    <EditTextPreference
+        android:name="ssid"
+        android:summary="Network name"
+        android:defaultValue=""
+        android:title="SSID"
+        android:key="wifi_ssid" />
+    <EditTextPreference
+        android:name="password"
+        android:summary="Wifi password"
+        android:defaultValue=""
+        android:title="Password"
+        android:inputType="textPassword"
+        android:key="wifi_pass"
+        android:password="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Static IP settings">
+    <SwitchPreference
+        android:title="Use stattic IP"
+        android:defaultValue="false"
+        android:key="allow_stat_ip" />
+    <EditTextPreference
+        android:name="ip"
+        android:defaultValue=""
+        android:title="Device IP"
+        android:key="wifi_ip"
+        android:hint="192.168.0.10"
+        android:textColorHint="#CCCCCC"
+        android:dependency="allow_stat_ip" />
+    <EditTextPreference
+        android:name="gw"
+        android:defaultValue=""
+        android:title="Gateway"
+        android:key="wifi_gw"
+        android:hint="192.168.0.1"
+        android:textColorHint="#CCCCCC"
+        android:dependency="allow_stat_ip" />
+    <EditTextPreference
+        android:name="sn"
+        android:defaultValue=""
+        android:title="Subnet mask"
+        android:key="wifi_sn"
+        android:hint="255.255.255.0"
+        android:textColorHint="#CCCCCC"
+        android:dependency="allow_stat_ip"/>
+    </PreferenceCategory>
+    <Preference
+        android:key="submitwifi"
+        android:title="Put settings to device"
+        android:summary=""
+        android:widgetLayout="@layout/submitwifi_button"
+        ></Preference>
+</PreferenceScreen>
