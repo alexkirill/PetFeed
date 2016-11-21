@@ -2,11 +2,15 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here.
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Customize your theme here
+        <item name="colorPrimaryDark">@color/colorBackgroundTitleTop</item>
+        .-->
+        <item name="colorPrimary">@color/colorBackgroundTitle</item>
+
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@color/colorAccent</item>-->
+        <item name="android:background">@color/colorBackground</item>
+        <item name="android:textColorHint">@color/hintcolor</item>
+
 
     </style>
 
@@ -16,8 +20,13 @@
 
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="android:background">@color/colorBackgroundTitle</item>
+        <item name="android:itemBackground">@color/whitecolor</item>
 </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:background">@color/colorBackground</item>
+        <item name="android:itemBackground">@color/colorBackground</item>
+        <item name="android:textColor">@color/whitecolor</item>
 
     </style>
 </resources>

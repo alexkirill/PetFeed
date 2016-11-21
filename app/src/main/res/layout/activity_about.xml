@@ -18,6 +18,14 @@
             android:id="@+id/textView4" />
 
         <TextView
+            android:text="Version:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:layout_below="@+id/textView4"
+            android:layout_alignStart="@+id/textView7" />
+
+        <TextView
             android:text="ID:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,15 +35,7 @@
             android:layout_marginStart="18dp" />
 
         <TextView
-            android:text="Version:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:layout_below="@+id/textView4"
-            android:layout_alignStart="@+id/textView7" />
-
-        <TextView
-            android:text="TextView"
+            android:text="NULL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView6"
@@ -43,11 +43,22 @@
             android:id="@+id/version_label" />
 
         <TextView
-            android:text="TextView"
+            android:text="NULL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView6"
             android:layout_toEndOf="@+id/textView7"
             android:id="@+id/id_label" />
+
+        <TextView
+            android:text="NULL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/devisename_label"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_toEndOf="@+id/textView4"
+            android:layout_marginStart="14dp" />
+
     </RelativeLayout>
 </LinearLayout>

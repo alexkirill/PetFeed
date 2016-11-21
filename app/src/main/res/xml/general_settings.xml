@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="WGeneral settings">
-        <CheckBoxPreference
+        android:title="General settings">
+        <!--
+        <SwitchPreference
             android:title="Allow empty tank notification"
             android:defaultValue="true"
             android:key="allow_empty_tank_notify" />
+            -->
         <ListPreference
             android:title="Meal size"
             android:summary="Number portion at meal"

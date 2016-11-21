@@ -10,10 +10,12 @@
             android:name="cloud_adress"
             android:summary="Cloud web site"
             android:defaultValue="google.com"
+            android:hint="website.com"
             android:title="Cloud adress"
             android:key="cloud_adr"
             android:dependency="allow_cloud_ctrl" />
-        <ListPreference
+       <!--
+       <ListPreference
             android:title="Interval"
             android:summary="Cloud check interval"
             android:key="cloud_chk_int"
@@ -21,6 +23,7 @@
             android:entryValues="@array/cloud_chk_int_values"
             android:defaultValue="2"
             android:dependency="allow_cloud_ctrl" />
+       -->
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Direct remote control">
@@ -35,7 +38,6 @@
             android:summary="External IP accessible from Internet"
             android:key="ext_ip"
             android:hint="187.169.45.12"
-            android:textColorHint="#CCCCCC"
             android:dependency="allow_direct_ctrl" />
         <EditTextPreference
             android:name="public_port"
@@ -44,7 +46,6 @@
             android:summary="Port for communication from Internet"
             android:key="ext_port"
             android:hint="80"
-            android:textColorHint="#CCCCCC"
             android:dependency="allow_direct_ctrl" />
     </PreferenceCategory>
 </PreferenceScreen>

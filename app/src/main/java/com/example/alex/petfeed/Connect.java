@@ -11,6 +11,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -43,6 +46,7 @@ public class Connect {
 
     static String setupNetworkSSID = "PetFeed";
     static String setupnetworkPass = "12345678";
+    static String onLivePage = "whoami";
 
     public Connect(){
     }
@@ -137,16 +141,65 @@ public class Connect {
         }
 }
 
-    public static void doFeed(String IP, String portion){
-        if(!IP.isEmpty()){
-            performGetVoid("http://" + IP + "/dofeed?portion=" + portion);
-        }
+    public static String doFeed(String address, String port, String portion){
+
+        return performGetCall("http://" + address + ":" + port + "/dofeed?portion=" + portion);
+
     }
+
     //check connection to the device
-    public boolean isConnectedCloud(){
-         return false;
+    public Map<String, String> ConnectRemote(){
+         Map hash = new HashMap<String, String>();
+        if(preferences.getBoolean("allow_direct_ctrl", false)){
+            String remote_IP = preferences.getString("ext_ip", "");
+            String remote_port = preferences.getString("ext_port", "");
+            if(getDeviceOnWeb(remote_IP, remote_port)){
+                hash.put("ip", remote_IP);
+                hash.put("port", remote_port);
+            }
+        }
+        return hash;
     }
-    public String isConnectLocal(String broadcast_IP) {
+    public Map<String, String> ConnectCloud(){
+        Map hash = new HashMap<String, String>();
+        if(preferences.getBoolean("allow_cloud_ctrl", false)){
+            String cloud_adr = preferences.getString("cloud_adr", "");
+            String deviceHash = preferences.getString("dhex", "");;
+            if(getDeviceOnCloud(cloud_adr)){
+                hash.put("host", cloud_adr);
+                hash.put("hash", deviceHash);
+            }
+        }
+        return hash;
+    }
+
+    public boolean getDeviceOnIP(String ip){
+        boolean result = false;
+        if (!ip.isEmpty()){
+            String host = "http://"+ ip +"/" + onLivePage; // allways with web page
+            result = performGetVoid(host);
+        }
+        return result;
+    }
+
+    public boolean getDeviceOnCloud(String address){
+        boolean result = false;
+        if (!address.isEmpty()){
+            String host = "http://"+ address; // allways with web page
+            result = performGetVoid(host);
+        }
+        return result;
+    }
+
+    public boolean getDeviceOnWeb(String address, String port){
+        boolean result = false;
+        if (!address.isEmpty()){
+            String host = "http://"+ address +":" + port + "/" + onLivePage; // allways with web page
+            result = performGetVoid(host);
+        }
+        return result;
+    }
+    public String ConnectLocal(String broadcast_IP) {
         String result = "";
          String static_IP = getStaticIP();
         if(getDeviceOnIP(broadcast_IP)){
@@ -156,16 +209,32 @@ public class Connect {
         }
         return result;
     }
-    public boolean getDeviceOnIP(String ip){
-        boolean result = false;
-        if (!ip.isEmpty()){
-            String host = "http://"+ ip +"/whoami"; // allways with web page
-            result = performGetVoid(host);
+    public static Map<String, String> whoAmI(String address, String port) {
+        Map hash = new HashMap<String, String>();
+        if(!address.isEmpty() && !port.isEmpty()) {
+            String response;
+            String host = "http://" + address + ":" + port + "/" + onLivePage; // allways with web page
+            response = performGetCall(host);
+            if (!response.isEmpty()) {
+                JSONObject json_response = null;
+                try {
+                    json_response = new JSONObject(response);
+                    hash.put("device_name", json_response.getString("device_name"));
+                    hash.put("version", json_response.getString("version"));
+                    hash.put("repository_host", json_response.getString("repository_host"));
+                    hash.put("repository_interval", json_response.getString("repository_interval"));
+                    hash.put("did", json_response.getString("did")); //
+                    hash.put("dhex", json_response.getString("dhex"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-            return result;
+        return hash;
     }
+
     //http request
-    public static boolean performGetVoid(String requestURL) {
+    private static boolean performGetVoid(String requestURL) {
         URL url;
         Boolean response = false;
         try {
@@ -186,17 +255,17 @@ public class Connect {
         }
         return response;
     }
-    public static String performGetCall(String requestURL) {
+    private static String performGetCall(String requestURL) {
         URL url;
-        String response = "";
+        String response = "1";
+
         try {
             url = new URL(requestURL);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(2000);
-            conn.setConnectTimeout(2000);
+            conn.setReadTimeout(30000);
+            conn.setConnectTimeout(30000);
             conn.setRequestMethod("GET");
-            conn.connect();
             conn.connect();
 
             try {
@@ -204,14 +273,16 @@ public class Connect {
                 response =  readStream(in);
             } finally {
                conn.disconnect();
+
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return response;
     }
-    public static String performPostCall(String requestURL, HashMap<String, String> postDataParams) {
+    private static String performPostCall(String requestURL, HashMap<String, String> postDataParams) {
 
         URL url;
         String response = "";
@@ -269,7 +340,7 @@ public class Connect {
 
         return result.toString();
     }
-    public static String readStream(InputStream in) throws IOException {
+    private static String readStream(InputStream in) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader r = new BufferedReader(new InputStreamReader(in),1000);
         for (String line = r.readLine(); line != null; line =r.readLine()){
@@ -278,17 +349,7 @@ public class Connect {
         in.close();
         return sb.toString();
     }
-    //end http request
-    //get last known IP from sharedPref
-    private String getLastIP() {
-        String ip = preferences.getString("lastIP", "");
-        return ip;
-    }
-    private void setLastIP(String ip) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("lastIP", ip);
-        editor.commit();
-    }
+
     private String getStaticIP() {
         String ip = preferences.getString("wifi_ip", "");
         return ip;
