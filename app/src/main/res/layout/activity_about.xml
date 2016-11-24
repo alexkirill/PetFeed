@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,10 +13,11 @@
             android:text="General device info:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:id="@+id/textView4"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="57dp"
-            android:id="@+id/textView4" />
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="71dp" />
 
         <TextView
             android:text="Version:"
@@ -23,7 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView6"
             android:layout_below="@+id/textView4"
-            android:layout_alignStart="@+id/textView7" />
+            android:layout_alignStart="@+id/textView4" />
 
         <TextView
             android:text="ID:"
@@ -31,24 +33,24 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView7"
             android:layout_below="@+id/textView6"
-            android:layout_alignStart="@+id/textView4"
-            android:layout_marginStart="18dp" />
+            android:layout_alignStart="@+id/textView6" />
 
         <TextView
             android:text="NULL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView6"
-            android:layout_toEndOf="@+id/textView6"
-            android:id="@+id/version_label" />
-
-        <TextView
-            android:text="NULL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/id_label"
             android:layout_below="@+id/textView6"
             android:layout_toEndOf="@+id/textView7"
-            android:id="@+id/id_label" />
+            android:layout_marginStart="11dp" />
+
+        <TextView
+            android:text="NULL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/version_label"
+            android:layout_below="@+id/textView4"
+            android:layout_toEndOf="@+id/id_label" />
 
         <TextView
             android:text="NULL"
@@ -58,7 +60,7 @@
             android:layout_alignBaseline="@+id/textView4"
             android:layout_alignBottom="@+id/textView4"
             android:layout_toEndOf="@+id/textView4"
-            android:layout_marginStart="14dp" />
+            android:layout_marginStart="11dp" />
 
     </RelativeLayout>
 </LinearLayout>

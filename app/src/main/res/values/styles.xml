@@ -1,19 +1,36 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here
-        <item name="colorPrimaryDark">@color/colorBackgroundTitleTop</item>
-        .-->
-        <item name="colorPrimary">@color/colorBackgroundTitle</item>
-
+        <!-- Customize your theme here.-->
+        <item name="colorPrimaryDark">@color/colorBackgroundTitle</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@color/colorBackground</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:textColorHint">@color/hintcolor</item>
+        <item name="colorPrimary">@color/colorBackgroundTitle</item>
+        <item name="android:itemBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:buttonStyle">@style/LiteButton</item>
 
 
     </style>
+    <style name="PreferencesTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:background">@color/colorBackground</item>
+    </style>
+    <style name="ScheduleTheme" parent="AppTheme">
 
+        <item name="android:alertDialogTheme">@style/AlertD</item>
+
+
+    </style>
+    <style name="LiteButton"  parent="@style/Widget.AppCompat.Button">
+        <item name="android:background">@color/whitecolor</item>
+        <item name="android:textColor">@color/colorBackgroundTitle</item>
+
+    </style>
+    <style name="AlertD" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -28,5 +45,8 @@
         <item name="android:itemBackground">@color/colorBackground</item>
         <item name="android:textColor">@color/whitecolor</item>
 
+    </style>
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 </resources>

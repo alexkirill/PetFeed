@@ -75,13 +75,12 @@ public class MainActivity extends AppCompatActivity {
             Thread animate = new Thread(new Runnable() {
                 public void run() {
                     int cycleTime = 3000;
-                    long start = System.currentTimeMillis();
-                    long end = start + Integer.parseInt(portion) * cycleTime; // 1 seconds * 1000 ms/sec
-                    while (System.currentTimeMillis() < end) {
-                        if (!drawable.isPlaying()) {
-                            drawable.start();
-                        }
+                    try {
+                        sleep(Integer.parseInt(portion) * cycleTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+
                     fb.post(new Runnable() {
                         @Override
                         public void run() {
@@ -124,7 +123,14 @@ public class MainActivity extends AppCompatActivity {
             dev_state.setVisibility(View.VISIBLE);
         }
     }
-
+    private void startConnectionAnimate(){
+        if(String.valueOf(connectionImage.getTag()) != "connection"){
+            connectionImage.setImageResource(0);
+            connectionImage.setBackgroundResource(R.drawable.connection);
+            connectionAnimate = (AnimationDrawable) connectionImage.getBackground();
+        }
+        connectionAnimate.start();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         isActivityInFront = true;
         setTimers();
-        connectionAnimate.start();
+        startConnectionAnimate();
     }
 
     @Override
@@ -185,7 +191,11 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, Preferences.class);
         }else if(id == R.id.action_about){
             intent = new Intent(this, About.class);
-        }
+        }else if(id == R.id.action_schedule){
+            intent = new Intent(this, Schedule.class);
+        }/*else if(id == R.id.action_home){
+            intent = new Intent(this, MainActivity.class);
+        }*/
 
         startActivity(intent);
         return true;

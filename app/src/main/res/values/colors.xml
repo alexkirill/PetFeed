@@ -7,5 +7,6 @@
     <color name="colorBackgroundTitle">#0e1e36</color>
     <color name="colorBackgroundTitleTop">#071426</color>
     <color name="whitecolor">#ffffff</color>
+    <color name="greycolor">#7c7c7c</color>
     <color name="hintcolor">#465b7b</color>
 </resources>

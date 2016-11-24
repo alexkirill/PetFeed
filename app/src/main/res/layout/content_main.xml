@@ -26,15 +26,6 @@
         android:layout_alignParentStart="true"
         android:onClick="showDetailStat"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:id="@+id/dev_state"
-        android:text="...connecting"
-        android:layout_alignBottom="@+id/connection"
-        android:layout_toEndOf="@+id/connection" />
-
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
@@ -44,4 +35,13 @@
         android:onClick="doFeed"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dev_state"
+        android:text="...connecting"
+        android:layout_alignBottom="@+id/connection"
+        android:layout_alignStart="@+id/feedButton"
+        android:layout_marginBottom="12dp" />
 </RelativeLayout>

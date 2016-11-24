@@ -5,6 +5,7 @@ package com.example.alex.petfeed;
  */
 
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.preference.CheckBoxPreference;
@@ -13,6 +14,7 @@ package com.example.alex.petfeed;
         import android.preference.PreferenceFragment;
         import android.preference.PreferenceManager;
         import android.preference.SwitchPreference;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.widget.Toolbar;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -44,6 +46,21 @@ public class Preferences extends PreferenceActivity {
     private  void delTimer(){
         mTimer.cancel();
         mTimer = null;
+    }
+    private  void showAlert(String title, String message, String btnText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(message)
+                //.setIcon(R.drawable.ic_android_cat)
+                .setCancelable(false)
+                .setNegativeButton(btnText,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
     public void submitWifiToDevice(View v){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -110,6 +127,7 @@ public class Preferences extends PreferenceActivity {
     public void onPause() {
         super.onPause();
         isActivityInFront = false;
+        submitwifi = null; //for timer cancelation
         delTimer();
     }
 
@@ -117,7 +135,6 @@ public class Preferences extends PreferenceActivity {
 
         SwitchPreference cloud_remote;
         SwitchPreference direct_remote;
-
 
         public void submitWifiToDevice(){
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -194,15 +211,13 @@ public class Preferences extends PreferenceActivity {
 
     //timer class
     class SutupModeCheck extends TimerTask {
-
+        boolean alreadyWasShown = false;
         Context context;
         Button submit_button;
 
         public SutupModeCheck(Context context){
             this.context = context;
-            View footerView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.submitwifi_button, null, false);
-            submit_button = (Button) footerView.findViewById(R.id.submitButton);
-            submit_button = (Button) footerView.findViewById(R.id.submitButton);
+
         }
         @Override
         public void run() {
@@ -213,7 +228,13 @@ public class Preferences extends PreferenceActivity {
                         if(Connect.isDeviceInSetupMode(context)) {
                             submitwifi.setSummary("* You'll be temporary disconect from your network");
                         }else{
-                            submitwifi.setSummary("* Device not in Setup Mode. Press Setup button on device");
+                            if(!alreadyWasShown){
+                                showAlert("Attention!", "Device not in Setup Mode. Press Setup button on device", "Ok");
+                                alreadyWasShown = true;
+                            }
+
+                            submitwifi.setSummary("                                                                        ");
+
                         }
 
                     }

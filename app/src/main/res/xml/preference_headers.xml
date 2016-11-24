@@ -13,13 +13,15 @@
         <!-- key/value pairs can be included as arguments for the fragment. -->
         <extra android:name="area" android:value="cloud" />
     </header>
+    <!--
     <header
         android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
         android:title="Schedule"
         android:summary="Timming settings" >
-        <!-- key/value pairs can be included as arguments for the fragment. -->
+         key/value pairs can be included as arguments for the fragment.
         <extra android:name="area" android:value="time" />
     </header>
+-->
     <header
         android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
         android:title="General"

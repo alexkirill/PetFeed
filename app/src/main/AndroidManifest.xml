@@ -217,7 +217,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Preferences"></activity>
+        <activity android:name=".Preferences"
+            android:theme="@style/PreferencesTheme">
+        </activity>
+        <activity android:name=".Schedule"
+            android:theme="@style/ScheduleTheme">
+        </activity>
         <activity android:name=".About"></activity>
         <service android:name=".InterSrv" />
         <service android:name=".UDPListenerService" />
