@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             feedtread.start();
-            boolean b;
             Thread animate = new Thread(new Runnable() {
                 public void run() {
                     int cycleTime = 3000;
@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
         connectionImage = (ImageView) findViewById(R.id.connection);
         connectionImage.setBackgroundResource(R.drawable.connection);
         connectionAnimate = (AnimationDrawable) connectionImage.getBackground();
+
+
     }
 
     @Override

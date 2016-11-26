@@ -5,8 +5,11 @@ package com.example.alex.petfeed;
  */
 
         import android.app.TimePickerDialog;
+        import android.content.BroadcastReceiver;
         import android.content.Context;
         import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.content.IntentFilter;
         import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.preference.CheckBoxPreference;
@@ -30,19 +33,24 @@ package com.example.alex.petfeed;
         import java.util.Arrays;
         import java.util.Calendar;
         import java.util.Date;
+        import java.util.HashMap;
         import java.util.HashSet;
         import java.util.List;
+        import java.util.Map;
         import java.util.Set;
         import java.util.Timer;
         import java.util.TimerTask;
 
+
 public class Preferences extends PreferenceActivity {
 
     boolean isActivityInFront = true;
+    static String PreferencePageName = "";
     static Preference submitwifi;
     private Timer mTimer;
     private SutupModeCheck SutupModeCheck;
     Toolbar mToolbar;
+
 
     private void setTimers() {
         //create timers
@@ -145,6 +153,7 @@ public class Preferences extends PreferenceActivity {
                 finish();
             }
         });
+
     }
 
     @Override
@@ -160,6 +169,11 @@ public class Preferences extends PreferenceActivity {
         isActivityInFront = false;
         submitwifi = null; //for timer cancelation
         delTimer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     public static class SettingsFragment extends PreferenceFragment {
@@ -192,7 +206,9 @@ public class Preferences extends PreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+
             String settings = getArguments().getString("area");
+            PreferencePageName = settings;
             if ("wifi".equals(settings)) {
                 addPreferencesFromResource(R.xml.wifi_settings);
                 submitwifi = findPreference("submitwifi");
@@ -248,10 +264,10 @@ public class Preferences extends PreferenceActivity {
 
         public SutupModeCheck(Context context){
             this.context = context;
-
         }
         @Override
         public void run() {
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -269,6 +285,16 @@ public class Preferences extends PreferenceActivity {
                         }
 
                     }
+                    /*else if("general".equals(PreferencePageName)){
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        local_IP  = connect.ConnectLocal(broadcast_IP);
+                        remote_options = connect.ConnectRemote();
+                    }
+                    */
                 }
             });
         }
