@@ -4,6 +4,7 @@ package com.example.alex.petfeed;
  * Created by alex on 09.11.2016.
  */
 
+        import android.app.TimePickerDialog;
         import android.content.Context;
         import android.content.DialogInterface;
         import android.content.SharedPreferences;
@@ -21,8 +22,14 @@ package com.example.alex.petfeed;
         import android.view.ViewGroup;
         import android.widget.Button;
         import android.widget.LinearLayout;
+        import android.widget.TextView;
+        import android.widget.TimePicker;
 
+        import java.text.ParseException;
+        import java.text.SimpleDateFormat;
         import java.util.Arrays;
+        import java.util.Calendar;
+        import java.util.Date;
         import java.util.HashSet;
         import java.util.List;
         import java.util.Set;
@@ -89,6 +96,30 @@ public class Preferences extends PreferenceActivity {
             }
         });
         t1.start();
+    }
+    public void timeClick(View v){
+        final TextView time = (TextView) findViewById(v.getId());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        Date date = null;
+        try {
+            date = sdf.parse(time.getText().toString());
+        } catch (ParseException e) { };
+        Calendar mcurrentTime = Calendar.getInstance();
+        mcurrentTime.setTime(date);
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(Preferences.this, R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
+            String zero_hour, zero_min;
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                if(selectedHour < 10){ zero_hour = "0";}else{ zero_hour = "";};
+                if(selectedMinute < 10){ zero_min = "0";}else{ zero_min = "";};
+                time.setText(zero_hour + selectedHour + ":" + zero_min + selectedMinute);
+            }
+        }, hour, minute, true);//Yes 24 hour time
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
     }
     @Override
     public void onBuildHeaders(List<Header> target) {

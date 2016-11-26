@@ -90,27 +90,7 @@ public class Connect {
             }
         }
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-/*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            URL url;
-                   Network network = connectivityManager.getActiveNetwork();
-                    //connectivityManager.bindProcessToNetwork(network);
-            try {
-                url = new URL("http://192.168.4.1/close");
-                try {
-                    URLConnection conn = network.openConnection(url);
-                    conn.setReadTimeout(2000);
-                    conn.setConnectTimeout(2000);
-                    conn.connect();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
 
-        }else
-        */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Network[] networks = connectivityManager.getAllNetworks();
             NetworkInfo networkInfo;

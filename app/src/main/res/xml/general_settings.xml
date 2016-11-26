@@ -15,5 +15,9 @@
             android:entries="@array/feed_portion_names"
             android:entryValues="@array/feed_portion_values"
             android:defaultValue="1" />
+        <com.example.alex.petfeed.TimePreference
+            android:title="Device time"
+            android:summary="Current device time"
+            android:key="devicetime" />
     </PreferenceCategory>
 </PreferenceScreen>

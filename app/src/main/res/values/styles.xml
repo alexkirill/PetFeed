@@ -15,7 +15,7 @@
     </style>
     <style name="PreferencesTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:background">@color/colorBackground</item>
+
     </style>
     <style name="ScheduleTheme" parent="AppTheme">
 
@@ -30,6 +30,7 @@
     </style>
     <style name="AlertD" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@color/colorBackground</item>
+
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
