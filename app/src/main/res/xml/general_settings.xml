@@ -18,6 +18,7 @@
         <com.example.alex.petfeed.TimePreference
             android:title="Device time"
             android:summary="Current device time"
-            android:key="devicetime" />
-    </PreferenceCategory>
+            android:key="devicetime"
+            />
+</PreferenceCategory>
 </PreferenceScreen>

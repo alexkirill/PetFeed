@@ -5,14 +5,10 @@ package com.example.alex.petfeed;
  */
 
         import android.app.TimePickerDialog;
-        import android.content.BroadcastReceiver;
         import android.content.Context;
         import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.IntentFilter;
         import android.content.SharedPreferences;
         import android.os.Bundle;
-        import android.preference.CheckBoxPreference;
         import android.preference.Preference;
         import android.preference.PreferenceActivity;
         import android.preference.PreferenceFragment;
@@ -20,7 +16,6 @@ package com.example.alex.petfeed;
         import android.preference.SwitchPreference;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.widget.Toolbar;
-        import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.Button;
@@ -33,10 +28,8 @@ package com.example.alex.petfeed;
         import java.util.Arrays;
         import java.util.Calendar;
         import java.util.Date;
-        import java.util.HashMap;
         import java.util.HashSet;
         import java.util.List;
-        import java.util.Map;
         import java.util.Set;
         import java.util.Timer;
         import java.util.TimerTask;
@@ -63,7 +56,7 @@ public class Preferences extends PreferenceActivity {
         mTimer = null;
     }
     private  void showAlert(String title, String message, String btnText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertD);
         builder.setTitle(title)
                 .setMessage(message)
                 //.setIcon(R.drawable.ic_android_cat)
@@ -153,7 +146,6 @@ public class Preferences extends PreferenceActivity {
                 finish();
             }
         });
-
     }
 
     @Override
@@ -242,6 +234,7 @@ public class Preferences extends PreferenceActivity {
                 addPreferencesFromResource(R.xml.time_settings);
             } else if ("general".equals(settings)) {
                 addPreferencesFromResource(R.xml.general_settings);
+
             }
         }
 

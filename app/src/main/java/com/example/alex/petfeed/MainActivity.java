@@ -138,8 +138,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        startService( new Intent(this, InterSrv.class) );//intent.putExtra("time", 3).putExtra("label", "Call 1")
-
         startService(new Intent(this, UDPListenerService.class));
         regBroadcastRes();
 

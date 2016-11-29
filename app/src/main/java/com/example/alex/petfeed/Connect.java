@@ -2,6 +2,7 @@ package com.example.alex.petfeed;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import java.util.Calendar;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -30,6 +31,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -105,12 +108,13 @@ public class Connect {
             }
         }
 
-        sleep(15000);
+        sleep(12000);
         performGetVoid("http://192.168.4.1/wifisave?s="+ssid+"&p="+pass+"&ip="+ip+"&gw="+gw+"&sn="+sn);
         sleep(2000);
         performGetVoid("http://192.168.4.1/close");
         sleep(2000);
         //coonect back
+        /*
         List<WifiConfiguration> newlist = wifiManager.getConfiguredNetworks();
         for( WifiConfiguration i : newlist ) {
             if(i.SSID != null && i.SSID.equals("\"" + oldSSID + "\"")) {
@@ -119,6 +123,9 @@ public class Connect {
                 break;
             }
         }
+        */
+        wifiManager.setWifiEnabled(false);
+        wifiManager.setWifiEnabled(true);
 }
 
     public static String doFeed(String address, String port, String portion){
@@ -152,6 +159,16 @@ public class Connect {
         }
         return hash;
     }
+    public String ConnectLocal(String broadcast_IP) {
+        String result = "";
+        String static_IP = getStaticIP();
+        if(getDeviceOnIP(broadcast_IP)){
+            result =  broadcast_IP;
+        }else if(getDeviceOnIP(static_IP)){
+            result = static_IP;
+        }
+        return result;
+    }
 
     public boolean getDeviceOnIP(String ip){
         boolean result = false;
@@ -161,7 +178,6 @@ public class Connect {
         }
         return result;
     }
-
     public boolean getDeviceOnCloud(String address){
         boolean result = false;
         if (!address.isEmpty()){
@@ -170,7 +186,6 @@ public class Connect {
         }
         return result;
     }
-
     public boolean getDeviceOnWeb(String address, String port){
         boolean result = false;
         if (!address.isEmpty()){
@@ -179,15 +194,85 @@ public class Connect {
         }
         return result;
     }
-    public String ConnectLocal(String broadcast_IP) {
-        String result = "";
-         String static_IP = getStaticIP();
-        if(getDeviceOnIP(broadcast_IP)){
-            result =  broadcast_IP;
-        }else if(getDeviceOnIP(static_IP)){
-            result = static_IP;
+
+    public static Map<String, Integer>  getDeviceTime(String address, String port){
+        Map hash = new HashMap<String, Integer>();
+        Integer hour = 0, minute = 0;
+        String response;
+        String host = "http://" + address + ":" + port + "/gettime"; // allways with web page
+        response = performGetCall(host);
+        if(!response.isEmpty()){
+
+            try {
+                JSONObject obj = new JSONObject(response);
+                hour =  Integer.parseInt(obj.getString("hour"));
+                minute =  Integer.parseInt(obj.getString("minute"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        return result;
+        hash.put("hour", hour);
+        hash.put("minute", minute);
+        return hash;
+    }
+    public static boolean setDeviceTime(String address, String port, String hour, String minute){
+        String year = "2017", month = "1", day = "1";
+        Calendar c = Calendar.getInstance();
+        year = Integer.toString(c.get(Calendar.YEAR));
+        month = Integer.toString(c.get(Calendar.MONTH) + 1); //month started from 0
+        day = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("year", year.substring((year.length()-2), year.length()));//year must be last 2 digits "17"
+        params.put("month", month);
+        params.put("day", day);
+        params.put("hour", hour);
+        params.put("minute", minute);
+        String host = "http://" + address + ":" + port + "/settime"; // allways with web page
+        String response = performPostCall(host, params);
+        if(!response.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+    public LinkedHashMap<String, Map<String, String>> getDeviceSchedule(String address, String port){
+        LinkedHashMap  hash = new LinkedHashMap<String, Map<String, String>>();
+        String response;
+        String host = "http://" + address + ":" + port + "/getschedule"; // allways with web page
+        response = performGetCall(host);
+        if(!response.isEmpty()){
+
+            try {
+                JSONObject object = new JSONObject(response);
+                Iterator<?> keys = object.keys();
+                while( keys.hasNext() ) {
+                    String key = (String)keys.next();
+                    if ( object.get(key) instanceof JSONObject ) {
+                        JSONObject obj =  (JSONObject) object.get(key);
+                        Map nestedHash = new HashMap<String, String>();
+                        nestedHash.put("hour", obj.getString("hour"));
+                        nestedHash.put("minute", obj.getString("minute"));
+                        nestedHash.put("portion", obj.getString("portion"));
+                        hash.put(key, nestedHash);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return hash;
+    }
+    public static boolean setDeviceSchedule(String address, String port, String serialazedParams){
+        HashMap params = new HashMap<String, String>();
+        params.put("schedule", serialazedParams);
+        String host = "http://" + address + ":" + port + "/setschedule"; // allways with web page
+        String response = performPostCall(host, params);
+        if(!response.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
     }
     public static Map<String, String> whoAmI(String address, String port) {
         Map hash = new HashMap<String, String>();
@@ -237,7 +322,7 @@ public class Connect {
     }
     private static String performGetCall(String requestURL) {
         URL url;
-        String response = "1";
+        String response = "";
 
         try {
             url = new URL(requestURL);
