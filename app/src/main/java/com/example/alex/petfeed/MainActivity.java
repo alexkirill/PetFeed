@@ -279,19 +279,19 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (!local_IP.isEmpty()) {
-                            String msg = "Devise is ready on local IP: \n" + local_IP;
+                            String msg = "Ready on local IP: " + local_IP;
                             prepareFeed(local_IP, "80", msg, R.drawable.lan_network);
                             count_test = 0;
                         } else if (remote_options.size() > 0) {
                             String ip = remote_options.get("ip").toString();
                             String port = remote_options.get("port").toString();
-                            String msg = "Devise is ready on remote IP: \n" + ip + ":" + port;
+                            String msg = "Ready on remote IP: " + ip + ":" + port;
                             prepareFeed(ip, port, msg, R.drawable.remote_network);
                             count_test = 0;
                         } else if (cloud_options.size() > 0) {
                             String host = cloud_options.get("host").toString();
                             String hash = cloud_options.get("hash").toString();
-                            String msg = "Devise is ready on Cloud: \n" + host;
+                            String msg = "Ready on Cloud: " + host;
                             prepareFeed(host+"?apphash="+hash, "80", msg, R.drawable.cloud_network);
                             count_test = 0;
                         } else {

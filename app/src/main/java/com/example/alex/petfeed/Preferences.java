@@ -4,6 +4,7 @@ package com.example.alex.petfeed;
  * Created by alex on 09.11.2016.
  */
 
+        import android.app.ProgressDialog;
         import android.app.TimePickerDialog;
         import android.content.Context;
         import android.content.DialogInterface;
@@ -80,6 +81,12 @@ public class Preferences extends PreferenceActivity {
         final String sn =    prefs.getString("wifi_sn", "");
         final Boolean staticIP = prefs.getBoolean("allow_stat_ip", false);
 
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AlertD);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("connecting device to WIFI...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         final Thread t1 = new Thread(new Runnable() {
             public void run() {
                 try {
@@ -90,6 +97,7 @@ public class Preferences extends PreferenceActivity {
                         }else{
                             Connect.DeviceToWifi(context, ssid, pass, ip, gw, sn);
                         }
+                        progressDialog.dismiss();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -173,44 +181,15 @@ public class Preferences extends PreferenceActivity {
         SwitchPreference cloud_remote;
         SwitchPreference direct_remote;
 
-        public void submitWifiToDevice(){
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String ssid =  prefs.getString("wifi_ssid", "");
-            String pass =  prefs.getString("wifi_pass", "");
-            String ip =    prefs.getString("wifi_ip", "");
-            String gw =    prefs.getString("wifi_gw", "");
-            String sn =    prefs.getString("wifi_sn", "");
-            Boolean staticIP = prefs.getBoolean("allow_stat_ip", false);
-
-            Thread t1 = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        Connect.DeviceToWifi(getActivity(), "K7", "8113082silopt", "10.0.0.195", "10.0.0.1", "255.255.255.0");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            t1.start();
-        }
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
 
             String settings = getArguments().getString("area");
             PreferencePageName = settings;
             if ("wifi".equals(settings)) {
                 addPreferencesFromResource(R.xml.wifi_settings);
                 submitwifi = findPreference("submitwifi");
-                /*
-                submitwifi = findPreference("submitwifi");
-                View v_submitwifi = submitwifi.getView(null, null);
-                Button submitButton = (Button)v_submitwifi.findViewById(R.id.submitButton);
-                submitButton.setText("Hello");
-                  */
-
 
             } else if ("cloud".equals(settings)) {
                 addPreferencesFromResource(R.xml.cloud_settings);
@@ -278,16 +257,6 @@ public class Preferences extends PreferenceActivity {
                         }
 
                     }
-                    /*else if("general".equals(PreferencePageName)){
-                        try {
-                            Thread.sleep(6000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        local_IP  = connect.ConnectLocal(broadcast_IP);
-                        remote_options = connect.ConnectRemote();
-                    }
-                    */
                 }
             });
         }
