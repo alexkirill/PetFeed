@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Remote settings">
+        android:title="@string/remote_settings">
         <SwitchPreference
-            android:title="Cloud remote control"
+            android:title="@string/cloud_remote_control"
             android:defaultValue="false"
             android:key="allow_cloud_ctrl" />
         <EditTextPreference
             android:name="cloud_adress"
-            android:summary="Cloud web site"
+            android:summary="@string/cloud_web_site"
             android:defaultValue="google.com"
             android:hint="website.com"
-            android:title="Cloud adress"
+            android:title="@string/cloud_adress"
             android:key="cloud_adr"
             android:dependency="allow_cloud_ctrl" />
        <!--
@@ -26,24 +26,24 @@
        -->
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Direct remote control">
+        android:title="@string/direct_remote_control">
         <SwitchPreference
-            android:title="Remote device control"
+            android:title="@string/remote_device_control"
             android:defaultValue="false"
             android:key="allow_direct_ctrl" />
         <EditTextPreference
             android:name="public_ip"
             android:defaultValue=""
-            android:title="Device public IP"
-            android:summary="External IP accessible from Internet"
+            android:title="@string/devise_public_ip"
+            android:summary="@string/external_ip_from_internet"
             android:key="ext_ip"
             android:hint="187.169.45.12"
             android:dependency="allow_direct_ctrl" />
         <EditTextPreference
             android:name="public_port"
             android:defaultValue=""
-            android:title="Device public port"
-            android:summary="Port for communication from Internet"
+            android:title="@string/device_public_port"
+            android:summary="@string/port_for_communication_internet"
             android:key="ext_port"
             android:hint="80"
             android:dependency="allow_direct_ctrl" />

@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dev_state"
-        android:text="...connecting"
+        android:text="@string/_connecting"
         android:layout_alignBottom="@+id/connection"
         android:layout_alignStart="@+id/feedButton"
         android:layout_marginBottom="12dp" />

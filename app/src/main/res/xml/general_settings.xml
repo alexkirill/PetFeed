@@ -9,15 +9,15 @@
             android:key="allow_empty_tank_notify" />
             -->
         <ListPreference
-            android:title="Meal size"
-            android:summary="Number portion at meal"
+            android:title="@string/meal_size"
+            android:summary="@string/number_portion_meal"
             android:key="portion"
             android:entries="@array/feed_portion_names"
             android:entryValues="@array/feed_portion_values"
             android:defaultValue="1" />
         <com.example.alex.petfeed.TimePreference
-            android:title="Device time"
-            android:summary="Current device time"
+            android:title="@string/device_time"
+            android:summary="@string/current_device_time"
             android:key="devicetime"
             />
 </PreferenceCategory>

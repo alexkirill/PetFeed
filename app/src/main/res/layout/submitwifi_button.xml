@@ -7,7 +7,9 @@
 <Button
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/submitButton"
-    android:text="Submit"
+    android:text="@string/submit_text"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:layout_width="wrap_content"
     android:onClick="submitWifiToDevice"
     android:layout_height="wrap_content">

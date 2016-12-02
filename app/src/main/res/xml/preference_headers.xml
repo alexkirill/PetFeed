@@ -2,31 +2,20 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <header
         android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
-        android:title="WIFI"
-        android:summary="Setup wifi credentials for device" >
+        android:title="@string/wifi_text"
+        android:summary="@string/setup_wifi_credentials" >
         <extra android:name="area" android:value="wifi" />
     </header>
     <header
         android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
-        android:title="Cloud"
-        android:summary="Setup cloud settings" >
-        <!-- key/value pairs can be included as arguments for the fragment. -->
+        android:title="@string/cloud_text"
+        android:summary="@string/setup_cloud_settings" >
         <extra android:name="area" android:value="cloud" />
     </header>
-    <!--
     <header
         android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
-        android:title="Schedule"
-        android:summary="Timming settings" >
-         key/value pairs can be included as arguments for the fragment.
-        <extra android:name="area" android:value="time" />
-    </header>
--->
-    <header
-        android:fragment="com.example.alex.petfeed.Preferences$SettingsFragment"
-        android:title="General"
-        android:summary="General settings of the device" >
-        <!-- key/value pairs can be included as arguments for the fragment. -->
+        android:title="@string/general_text"
+        android:summary="@string/general_settings" >
         <extra android:name="area" android:value="general" />
     </header>
 </preference-headers>

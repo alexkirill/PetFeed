@@ -17,7 +17,7 @@
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:title="Settings"
+        app:title="@string/settings_text"
         app:theme="@style/AppTheme"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 

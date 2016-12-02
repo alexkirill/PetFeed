@@ -279,26 +279,26 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (!local_IP.isEmpty()) {
-                            String msg = "Ready on local IP: " + local_IP;
+                            String msg = getString(R.string.ready_on_local_ip) + local_IP;
                             prepareFeed(local_IP, "80", msg, R.drawable.lan_network);
                             count_test = 0;
                         } else if (remote_options.size() > 0) {
                             String ip = remote_options.get("ip").toString();
                             String port = remote_options.get("port").toString();
-                            String msg = "Ready on remote IP: " + ip + ":" + port;
+                            String msg = getString(R.string.ready_on_remote_ip) + ip + ":" + port;
                             prepareFeed(ip, port, msg, R.drawable.remote_network);
                             count_test = 0;
                         } else if (cloud_options.size() > 0) {
                             String host = cloud_options.get("host").toString();
                             String hash = cloud_options.get("hash").toString();
-                            String msg = "Ready on Cloud: " + host;
+                            String msg = getString(R.string.ready_on_cloud) + host;
                             prepareFeed(host+"?apphash="+hash, "80", msg, R.drawable.cloud_network);
                             count_test = 0;
                         } else {
                             if (count_test < attempt) {
                                 count_test++;
                             } else {
-                                prepareFeed("", "80", "Devise not found in LAN", R.drawable.no_connection);
+                                prepareFeed("", "80", getString(R.string.devise_has_not_been_found), R.drawable.no_connection);
                             }
                         }
                     }

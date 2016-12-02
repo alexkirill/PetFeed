@@ -83,7 +83,7 @@ public class Preferences extends PreferenceActivity {
 
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AlertD);
         progressDialog.setMax(100);
-        progressDialog.setMessage("connecting device to WIFI...");
+        progressDialog.setMessage(getString(R.string.connecting_device_to_wifi));
         progressDialog.setCancelable(false);
         progressDialog.show();
 
@@ -127,7 +127,7 @@ public class Preferences extends PreferenceActivity {
                 time.setText(zero_hour + selectedHour + ":" + zero_min + selectedMinute);
             }
         }, hour, minute, true);//Yes 24 hour time
-        mTimePicker.setTitle("Select Time");
+        mTimePicker.setTitle(getString(R.string.select_time));
         mTimePicker.show();
     }
     @Override
@@ -245,10 +245,10 @@ public class Preferences extends PreferenceActivity {
                 public void run() {
                     if(submitwifi != null){
                         if(Connect.isDeviceInSetupMode(context)) {
-                            submitwifi.setSummary("* You'll be temporary disconect from your network");
+                            submitwifi.setSummary(getString(R.string.youll_be_temporary_disconect_from_network));
                         }else{
                             if(!alreadyWasShown){
-                                showAlert("Attention!", "Device not in Setup Mode. Press Setup button on device", "Ok");
+                                showAlert(getString(R.string.alert_attention), getString(R.string.device_not_in_setup_mode), getString(R.string.ok_dialog_button));
                                 alreadyWasShown = true;
                             }
 

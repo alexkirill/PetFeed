@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="WiFi settings">
+        android:title="@string/wifi_settings">
     <EditTextPreference
         android:name="ssid"
-        android:summary="Network name"
+        android:summary="@string/network_name"
         android:defaultValue=""
-        android:title="SSID"
+        android:title="@string/ssid_text"
         android:key="wifi_ssid" />
     <EditTextPreference
         android:name="password"
-        android:summary="Wifi password"
+        android:summary="@string/wifi_password"
         android:defaultValue=""
-        android:title="Password"
+        android:title="@string/password_text"
         android:inputType="textPassword"
         android:key="wifi_pass"
         android:password="false" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Static IP settings">
+        android:title="@string/static_ip_settings">
     <SwitchPreference
-        android:title="Use stattic IP"
+        android:title="@string/use_static_ip"
         android:defaultValue="false"
         android:key="allow_stat_ip" />
     <EditTextPreference
         android:name="ip"
         android:defaultValue=""
-        android:title="Device IP"
+        android:title="@string/device_ip"
         android:key="wifi_ip"
         android:hint="192.168.0.10"
         android:dependency="allow_stat_ip" />
     <EditTextPreference
         android:name="gw"
         android:defaultValue=""
-        android:title="Gateway"
+        android:title="@string/gateway"
         android:key="wifi_gw"
         android:hint="192.168.0.1"
         android:dependency="allow_stat_ip" />
     <EditTextPreference
         android:name="sn"
         android:defaultValue=""
-        android:title="Subnet mask"
+        android:title="@string/subnet_mask"
         android:key="wifi_sn"
         android:hint="255.255.255.0"
         android:dependency="allow_stat_ip"/>
     </PreferenceCategory>
     <Preference
         android:key="submitwifi"
-        android:title="Put settings to device"
+        android:title="@string/put_setting_to_device"
         android:summary=""
         android:widgetLayout="@layout/submitwifi_button"
         ></Preference>

@@ -27,7 +27,7 @@ public class About extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("About");
+        getSupportActionBar().setTitle(getString(R.string.about_text));
 
         //read shared preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
