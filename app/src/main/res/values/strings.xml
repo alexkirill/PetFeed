@@ -59,4 +59,5 @@
     <string name="subnet_mask">Subnet mask</string>
     <string name="put_setting_to_device">Put settings to device</string>
     <string name="submit_text">Submit</string>
+    <string name="set_ssid_and_pass">Please, set WiFi SSID and Password first</string>
 </resources>

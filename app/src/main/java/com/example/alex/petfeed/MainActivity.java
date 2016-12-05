@@ -1,11 +1,14 @@
 package com.example.alex.petfeed;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -137,8 +140,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        startService(new Intent(this, UDPListenerService.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
+            startService(new Intent(this, UDPListenerService.class));
         regBroadcastRes();
 
         dev_state = (TextView) findViewById(R.id.dev_state);
@@ -147,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         connectionImage = (ImageView) findViewById(R.id.connection);
         connectionImage.setBackgroundResource(R.drawable.connection);
         connectionAnimate = (AnimationDrawable) connectionImage.getBackground();
-
 
     }
 

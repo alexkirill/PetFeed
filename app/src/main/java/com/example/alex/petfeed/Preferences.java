@@ -80,31 +80,34 @@ public class Preferences extends PreferenceActivity {
         final String gw =    prefs.getString("wifi_gw", "");
         final String sn =    prefs.getString("wifi_sn", "");
         final Boolean staticIP = prefs.getBoolean("allow_stat_ip", false);
+        if(ssid.isEmpty() || pass.isEmpty()){
+            showAlert(getString(R.string.alert_attention), getString(R.string.set_ssid_and_pass), getString(R.string.ok_dialog_button));
+        }else {
+            final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AlertD);
+            progressDialog.setMax(100);
+            progressDialog.setMessage(getString(R.string.connecting_device_to_wifi));
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
-        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AlertD);
-        progressDialog.setMax(100);
-        progressDialog.setMessage(getString(R.string.connecting_device_to_wifi));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-        final Thread t1 = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    if(!ssid.isEmpty() && !pass.isEmpty()){
-                        Set<String> statics = new HashSet<String>(Arrays.asList(ip, gw, sn));
-                        if(!staticIP && !statics.contains("")){
-                            Connect.DeviceToWifi(context, ssid, pass, "", "", "");
-                        }else{
-                            Connect.DeviceToWifi(context, ssid, pass, ip, gw, sn);
+            final Thread t1 = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        if (!ssid.isEmpty() && !pass.isEmpty()) {
+                            Set<String> statics = new HashSet<String>(Arrays.asList(ip, gw, sn));
+                            if (!staticIP && !statics.contains("")) {
+                                Connect.DeviceToWifi(context, ssid, pass, "", "", "");
+                            } else {
+                                Connect.DeviceToWifi(context, ssid, pass, ip, gw, sn);
+                            }
+                            progressDialog.dismiss();
                         }
-                        progressDialog.dismiss();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
-            }
-        });
-        t1.start();
+            });
+            t1.start();
+        }
     }
     public void timeClick(View v){
         final TextView time = (TextView) findViewById(v.getId());

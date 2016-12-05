@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.RECEIVE_DATA_ACTIVITY_CHANGE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -20,8 +21,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -31,12 +34,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".Preferences"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/PreferencesTheme">
         </activity>
         <activity android:name=".Schedule"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/ScheduleTheme">
         </activity>
-        <activity android:name=".About"></activity>
+        <activity android:name=".About"
+            android:configChanges="orientation|screenSize">
+
+        </activity>
         <service android:name=".InterSrv" />
         <service android:name=".UDPListenerService" />
     </application>
