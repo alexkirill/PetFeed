@@ -45,7 +45,7 @@ import static java.lang.Thread.sleep;
  */
 
 public class Connect {
-    SharedPreferences preferences;
+    static SharedPreferences preferences;
 
     static String setupNetworkSSID = "PetFeed";
     static String setupnetworkPass = "12345678";
@@ -129,9 +129,18 @@ public class Connect {
 }
 
     public static String doFeed(String address, String port, String portion){
-
-        return performGetCall("http://" + address + ":" + port + "/dofeed?portion=" + portion);
-
+      if (address.equals(getCloudAdres())){
+          HashMap<String, String> params = new HashMap<String, String>();
+          params.put("version", getVersion());
+          params.put("did", getDID());
+          params.put("dhex", getDHEX());
+          params.put("portion", portion);
+          String host = "http://" + address + "/dofeed/set"; // allways with web page
+          String response = performPostCall(host, params);
+          return response;
+      }else{
+          return performGetCall("http://" + address + ":" + port + "/dofeed?portion=" + portion);
+      }
     }
 
     //check connection to the device
@@ -417,6 +426,22 @@ public class Connect {
 
     private String getStaticIP() {
         String ip = preferences.getString("wifi_ip", "");
+        return ip;
+    }
+    private static String getCloudAdres() {
+        String ip = preferences.getString("cloud_adr", "");
+        return ip;
+    }
+    private static String getVersion() {
+        String ip = preferences.getString("version", "");
+        return ip;
+    }
+    private static String getDID() {
+        String ip = preferences.getString("did", "");
+        return ip;
+    }
+    private static String getDHEX() {
+        String ip = preferences.getString("dhex", "");
         return ip;
     }
 }

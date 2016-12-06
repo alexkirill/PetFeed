@@ -296,9 +296,9 @@ public class MainActivity extends AppCompatActivity {
                             count_test = 0;
                         } else if (cloud_options.size() > 0) {
                             String host = cloud_options.get("host").toString();
-                            String hash = cloud_options.get("hash").toString();
+                            //String hash = cloud_options.get("hash").toString();
                             String msg = getString(R.string.ready_on_cloud) + host;
-                            prepareFeed(host+"?apphash="+hash, "80", msg, R.drawable.cloud_network);
+                            prepareFeed(host, "80", msg, R.drawable.cloud_network);
                             count_test = 0;
                         } else {
                             if (count_test < attempt) {
