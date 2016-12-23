@@ -159,15 +159,24 @@ public class Connect {
     public Map<String, String> ConnectCloud(){
         Map hash = new HashMap<String, String>();
         Boolean allow_cloud_ctrl = preferences.getBoolean("allow_cloud_ctrl", false);
+        String cloud_adr = preferences.getString("cloud_adr", "");
         String version = preferences.getString("version", "");
         String did = preferences.getString("did", "");
         String dhex = preferences.getString("dhex", "");
         if(allow_cloud_ctrl && !version.isEmpty() && !did.isEmpty() && !dhex.isEmpty()){
-            String cloud_adr = preferences.getString("cloud_adr", "");
-            String deviceHash = preferences.getString("dhex", "");;
-            if(getDeviceOnCloud(cloud_adr)){
+            HashMap params = new HashMap<String, String>();
+            params.put("did", did);
+            params.put("dhex", dhex);
+            params.put("version", version);
+            String response = getDeviceOnCloud(cloud_adr, params);
+            if(!response.isEmpty()){
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    hash.put("tank", obj.getString("tank"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 hash.put("host", cloud_adr);
-                hash.put("hash", deviceHash);
             }
         }
         return hash;
@@ -191,11 +200,12 @@ public class Connect {
         }
         return result;
     }
-    public boolean getDeviceOnCloud(String address){
-        boolean result = false;
+    public String getDeviceOnCloud(String address, HashMap params){
+        String result = "";
         if (!address.isEmpty()){
-            String host = "http://"+ address; // allways with web page
-            result = performGetVoid(host);
+            String host = "http://"+ address + "/" + onLivePage; // allways with web page
+            //result in json
+            result = performPostCall(host, params);
         }
         return result;
     }
