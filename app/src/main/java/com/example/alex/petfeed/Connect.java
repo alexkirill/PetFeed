@@ -158,7 +158,11 @@ public class Connect {
     }
     public Map<String, String> ConnectCloud(){
         Map hash = new HashMap<String, String>();
-        if(preferences.getBoolean("allow_cloud_ctrl", false)){
+        Boolean allow_cloud_ctrl = preferences.getBoolean("allow_cloud_ctrl", false);
+        String version = preferences.getString("version", "");
+        String did = preferences.getString("did", "");
+        String dhex = preferences.getString("dhex", "");
+        if(allow_cloud_ctrl && !version.isEmpty() && !did.isEmpty() && !dhex.isEmpty()){
             String cloud_adr = preferences.getString("cloud_adr", "");
             String deviceHash = preferences.getString("dhex", "");;
             if(getDeviceOnCloud(cloud_adr)){
@@ -297,8 +301,9 @@ public class Connect {
                     hash.put("version", json_response.getString("version"));
                     hash.put("repository_host", json_response.getString("repository_host"));
                     hash.put("repository_interval", json_response.getString("repository_interval"));
-                    hash.put("did", json_response.getString("did")); //
+                    hash.put("did", json_response.getString("did"));
                     hash.put("dhex", json_response.getString("dhex"));
+                    hash.put("tank", json_response.getString("tank"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

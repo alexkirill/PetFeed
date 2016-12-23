@@ -9,7 +9,7 @@
         <EditTextPreference
             android:name="cloud_adress"
             android:summary="@string/cloud_web_site"
-            android:defaultValue="google.com"
+            android:defaultValue="petfeed.com.ua"
             android:hint="website.com"
             android:title="@string/cloud_adress"
             android:key="cloud_adr"

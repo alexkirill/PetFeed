@@ -80,7 +80,7 @@ public class Preferences extends PreferenceActivity {
         final String gw =    prefs.getString("wifi_gw", "");
         final String sn =    prefs.getString("wifi_sn", "");
         final Boolean staticIP = prefs.getBoolean("allow_stat_ip", false);
-        if(ssid.isEmpty() || pass.isEmpty()){
+        if(ssid.isEmpty()){
             showAlert(getString(R.string.alert_attention), getString(R.string.set_ssid_and_pass), getString(R.string.ok_dialog_button));
         }else {
             final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AlertD);

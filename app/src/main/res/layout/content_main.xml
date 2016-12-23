@@ -36,12 +36,33 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/tank_empty"
+        android:id="@+id/tank_state"
+        android:visibility="invisible"
+        android:onClick="showDetailTank"
+        android:layout_alignTop="@+id/connection"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="25dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dev_state"
         android:text="@string/_connecting"
-        android:layout_alignBottom="@+id/connection"
-        android:layout_alignStart="@+id/feedButton"
-        android:layout_marginBottom="12dp" />
+        android:layout_below="@+id/connection"
+        android:layout_alignStart="@+id/connection"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:text="@string/empty_tank_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tank_desc"
+        android:visibility="invisible"
+        android:layout_alignBaseline="@+id/dev_state"
+        android:layout_alignBottom="@+id/dev_state"
+        android:layout_alignEnd="@+id/tank_state" />
 </RelativeLayout>

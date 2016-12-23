@@ -54,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
     AnimationDrawable connectionAnimate;
     ImageView connectionImage;
+    ImageView tankImage;
     ImageView buttonImage;
     TextView dev_state;
+    TextView tank_desc;
 
 
     public void doFeed(View v) {
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("version", hash.get("version").toString());
             editor.putString("did", hash.get("did").toString());
             editor.putString("dhex", hash.get("dhex").toString());
+            editor.putString("tank", hash.get("tank").toString());
             editor.commit();
         }
     }
@@ -124,6 +127,13 @@ public class MainActivity extends AppCompatActivity {
             dev_state.setVisibility(View.INVISIBLE);
         }else{
             dev_state.setVisibility(View.VISIBLE);
+        }
+    }
+    public void showDetailTank(View v){
+        if(tank_desc.getVisibility() == View.VISIBLE){
+            tank_desc.setVisibility(View.INVISIBLE);
+        }else{
+            tank_desc.setVisibility(View.VISIBLE);
         }
     }
     private void startConnectionAnimate(){
@@ -151,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
         dev_state = (TextView) findViewById(R.id.dev_state);
         dev_state.setVisibility(View.INVISIBLE);
         buttonImage = (ImageView) findViewById(R.id.feedButton);
+        tankImage = (ImageView) findViewById(R.id.tank_state);
+        tank_desc = (TextView) findViewById(R.id.tank_desc);
         connectionImage = (ImageView) findViewById(R.id.connection);
         connectionImage.setBackgroundResource(R.drawable.connection);
         connectionAnimate = (AnimationDrawable) connectionImage.getBackground();
@@ -222,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     //timer class
     class mTimerTask extends TimerTask {
 
@@ -232,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         Map remote_options = new HashMap<String, String>();
         Integer count_test = 0;
         Integer attempt = 5;
+        Boolean empty_tank = false;
 
         public mTimerTask(SharedPreferences preferences) {
             this.preferences = preferences;
@@ -249,6 +263,14 @@ public class MainActivity extends AppCompatActivity {
             remote_options = connect.ConnectRemote();
             if(!remote_options.isEmpty()){
                 getWhoAmI(remote_options.get("ip").toString(), remote_options.get("port").toString());
+            }
+        }
+        private void tankState(){
+           String tank =  preferences.getString("tank", "");
+            if (tank.equals("EMPTY")){
+                empty_tank = true;
+            }else{
+                empty_tank = false;
             }
         }
 
@@ -275,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
               testLan();
               testRemote();
               testCloud();
+              tankState();
               try {
                   sleep(2500);
               } catch (InterruptedException e) {
@@ -306,6 +329,12 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 prepareFeed("", "80", getString(R.string.devise_has_not_been_found), R.drawable.no_connection);
                             }
+                        }
+                        if(empty_tank){
+                            tankImage.setVisibility(View.VISIBLE);
+                        }else{
+                            tankImage.setVisibility(View.INVISIBLE);
+                            tank_desc.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
